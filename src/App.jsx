@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { Button, Container, Table, InputGroup, Form, Alert } from "react-bootstrap";
 
 function App() {
-	// const N = 20;
 	const [request, setRequest] = useState({});
 	const [granted, setGranted] = useState({});
 	const [N, setNumProcesses] = useState(10);
@@ -17,10 +16,6 @@ function App() {
 		loadStates();
 		setTimeout(threadRunner, 0);
 	};
-
-	useEffect(() => {
-		// startProgram();
-	}, []);
 
 	useEffect(() => {
 		console.log({ request });
@@ -36,29 +31,24 @@ function App() {
 		setTimeout(() => {
 			const wait = rand();
 			const critical = rand();
-			// sleepWithExceptionHandling(wait);
 			setTimeout(() => {
 				console.log("Process " + id + " is requesting for resource");
-				// request[id] = 1;
 				console.log("request before setting it 1", request);
 				setLogs((previousLogs) => [
 					...previousLogs,
 					"Process " + id + " is requesting for resource",
 				]);
-				// setRequest({ ...request, [id]: 1 });
 				setRequest((previousRequest) => {
 					return { ...previousRequest, [id]: 1 };
 				});
 				turn = 1 - turn;
 				const x = turn;
-				// granted[id] = 0;
 				setGranted((previousGrant) => {
 					return { ...previousGrant, [id]: 0 };
 				});
 				while (granted.id == 0) {
 					if (token == 0) {
 						token = 1;
-						// granted[id] = 1;
 						setGranted((previousGrant) => {
 							return { ...previousGrant, [id]: 1 };
 						});
@@ -66,15 +56,11 @@ function App() {
 						if (request[1 - x] == 0) {
 							turn = 1 - turn;
 						} else {
-							// request[id] = 0;
-							// setRequest({ ...request, [id]: 0 });
 							setRequest((previousRequest) => {
 								return { ...previousRequest, [id]: 0 };
 							});
 							while (granted[1 - x] == 1) {
 								if (turn == x) {
-									// request[id] = 1;
-									// setRequest({ ...request, [id]: 1 });
 									setRequest((previousRequest) => {
 										return { ...previousRequest, [id]: 1 };
 									});
@@ -83,17 +69,11 @@ function App() {
 						}
 					}
 				}
-				// TODO fix this
-				// for (var i = 0; i < critical; i++) {
-				// sleepWithExceptionHandling(1);
-				// }
 				setTimeout(() => {
 					token = 0;
-					// granted[id] = 0;
 					setGranted((previousGrant) => {
 						return { ...previousGrant, [id]: 0 };
 					});
-					// request[id] = 0;
 					setRequest((previousRequest) => {
 						return { ...previousRequest, [id]: 0 };
 					});
