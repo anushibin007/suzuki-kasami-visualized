@@ -75,7 +75,7 @@ function App() {
 						return { ...previousGrant, [id]: 0 };
 					});
 					setRequest((previousRequest) => {
-						return { ...previousRequest, [id]: 0 };
+						return { ...previousRequest, [id]: 3 };
 					});
 					console.log("Process " + id + " has released resource");
 					setLogs((previousLogs) => [
@@ -142,16 +142,15 @@ function App() {
 				<Button onClick={startProgram}>Start Program</Button>
 			</InputGroup>
 			<Alert variant="primary">
-				<p>Process Lifecycle:</p>
+				<p>Process Lifecycle (✅ → ⏳ → 🏁):</p>
 				<ol>
-					<li>The processes start in a Normal state.</li>
-					<li>Then a trigger to the Critical state happens automatically.</li>
+					<li>The processes start in a Normal state ✅</li>
+					<li>Then a trigger to the Critical state happens automatically ⏳</li>
 					<li>
-						Finally, they return back to the normal state after a few seconds of
-						criticality.
+						Finally, they return back to the non-Critcal state after a few random
+						seconds of Criticality 🏁
 					</li>
 				</ol>
-				<p>Like this: ✅ → ⏳ → ✅</p>
 			</Alert>
 			<Table striped bordered hover>
 				<thead>
@@ -164,7 +163,13 @@ function App() {
 					{Object.keys(request).map((key) => (
 						<tr key={key}>
 							<td>{key}</td>
-							<td>{request[key] === 0 ? "✅ Normal" : "⏳ Critical"}</td>
+							<td>
+								{request[key] === 0
+									? "✅ Ready"
+									: request[key] === 1
+									? "⏳ Critical"
+									: "🏁 Done"}
+							</td>
 						</tr>
 					))}
 				</tbody>
