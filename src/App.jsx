@@ -191,7 +191,9 @@ function App() {
 			</Table>
 			<p>
 				An assignment submission by Anu Shibin J (2022MT12007). Fork this project on my{" "}
-				<a href="https://github.com/anushibin007/suzuki-kasami-visualized)">my GitHub</a>
+				<a href="https://github.com/anushibin007/suzuki-kasami-visualized" target="_blank">
+					my GitHub
+				</a>
 			</p>
 		</Container>
 	);
