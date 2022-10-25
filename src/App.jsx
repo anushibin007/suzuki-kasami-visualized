@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import rn from "random-number";
 import { useEffect } from "react";
-import { Button, Container, Table, InputGroup, Form, Alert } from "react-bootstrap";
+import { Button, Container, Table, InputGroup, Form, Alert, ProgressBar } from "react-bootstrap";
 
 function App() {
 	const [request, setRequest] = useState({});
 	const [granted, setGranted] = useState({});
 	const [N, setNumProcesses] = useState(10);
 	const [logs, setLogs] = useState([]);
+	const [progress, setProgress] = useState(0);
 
 	var token = 0;
 	var turn = 0;
@@ -18,7 +19,18 @@ function App() {
 	};
 
 	useEffect(() => {
+		// log the request variable
 		console.log({ request });
+
+		// compute progress
+		var tempProgress = 0;
+		Object.keys(request).forEach((key) => {
+			if (request[key] === 3) {
+				tempProgress += 1;
+			}
+		});
+		tempProgress = (tempProgress / N) * 100;
+		setProgress(tempProgress);
 	}, [request]);
 
 	const threadRunner = () => {
@@ -141,6 +153,9 @@ function App() {
 				/>
 				<Button onClick={startProgram}>Start Program</Button>
 			</InputGroup>
+			{progress > 0 && (
+				<ProgressBar className="my-3" animated now={progress} label={`${progress}%`} />
+			)}
 			<Alert variant="primary">
 				<p>Process Lifecycle (✅ → ⏳ → 🏁):</p>
 				<ol>
