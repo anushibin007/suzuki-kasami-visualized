@@ -189,6 +189,10 @@ function App() {
 					))}
 				</tbody>
 			</Table>
+			<p>
+				Fork this project on{" "}
+				<a href="https://github.com/anushibin007/suzuki-kasami-visualized)">GitHub</a>
+			</p>
 		</Container>
 	);
 }
