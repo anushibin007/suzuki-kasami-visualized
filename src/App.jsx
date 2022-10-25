@@ -157,6 +157,7 @@ function App() {
 					aria-describedby="basic-addon1"
 					value={N}
 					onChange={handleNumProcessChange}
+					autoFocus
 				/>
 				<Button onClick={startProgram}>Start Program</Button>
 			</InputGroup>
