@@ -4,6 +4,10 @@
 
 The project is live on AWS Amplify at: https://master.d3nrzc077r7ovf.amplifyapp.com/
 
+## Author
+
+Anu Shibin J (2022MT12007)
+
 ## Description
 
 This project was done as part of the Assignment component under EC-1 for the Distributed Computing course in BITS Pilani, Semester 1.
