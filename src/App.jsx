@@ -111,10 +111,10 @@ function App() {
 	};
 
 	const clearStates = () => {
-		setRequest((previousRequest) => {
+		setRequest(() => {
 			return {};
 		});
-		setGranted((previousGrant) => {
+		setGranted(() => {
 			return {};
 		});
 	};
