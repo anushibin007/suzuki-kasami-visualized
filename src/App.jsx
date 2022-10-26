@@ -157,10 +157,10 @@ function App() {
 				<ProgressBar className="my-3" animated now={progress} label={`${progress}%`} />
 			)}
 			<Alert variant="primary">
-				<p>Process Lifecycle (✅ → ⏳ → 🏁):</p>
+				<p>Process Lifecycle (✅ → ⚠ → 🏁):</p>
 				<ol>
 					<li>The processes start in a Normal state ✅</li>
-					<li>Then a trigger to the Critical state happens automatically ⏳</li>
+					<li>Then a trigger to the Critical state happens automatically ⚠</li>
 					<li>
 						Finally, they return back to the non-Critcal state after a few random
 						seconds of Criticality 🏁
@@ -182,7 +182,7 @@ function App() {
 								{request[key] === 0
 									? "✅ Ready"
 									: request[key] === 1
-									? "⏳ Critical"
+									? "⚠ Critical"
 									: "🏁 Done"}
 							</td>
 						</tr>
