@@ -30,6 +30,10 @@ function App() {
 			}
 		});
 		tempProgress = (tempProgress / N) * 100;
+		// Set a dummy progress value in order to start the process and also disable the buttons and inputs
+		if (tempProgress === 0 && Object.keys(request).length > 0) {
+			tempProgress = 5;
+		}
 		setProgress(tempProgress);
 	}, [request]);
 
@@ -135,6 +139,10 @@ function App() {
 		setNumProcesses(parseInt(event.target.value) || 0);
 	};
 
+	const disableButtons = () => {
+		return progress != 0 && progress != 100;
+	};
+
 	return (
 		<Container className="my-3">
 			<h2>
@@ -150,8 +158,11 @@ function App() {
 					value={N}
 					onChange={handleNumProcessChange}
 					autoFocus
+					disabled={disableButtons()}
 				/>
-				<Button onClick={startProgram}>Start Program</Button>
+				<Button onClick={startProgram} disabled={disableButtons()}>
+					Start Program
+				</Button>
 			</InputGroup>
 			{progress > 0 && (
 				<ProgressBar className="my-3" animated now={progress} label={`${progress}%`} />
