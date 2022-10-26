@@ -13,25 +13,44 @@ import {
 } from "react-bootstrap";
 
 function App() {
+	/**
+	 * Stores the states of the processes.
+	 * 0 - Ready
+	 * 1 - Critical
+	 * 3 - Done
+	 */
 	const [request, setRequest] = useState({});
+
+	/**
+	 * Says whether a process's critical request was granted or not.
+	 * 0 - Not granted
+	 * 1 - Granted
+	 */
 	const [granted, setGranted] = useState({});
+
+	/**
+	 * The number of processes to simulate the algorithm on.
+	 */
 	const [numProcesses, setNumProcesses] = useState(10);
-	const [logs, setLogs] = useState([]);
+
+	/**
+	 * A variable used to store the progress of the algorithm execution.
+	 */
 	const [progress, setProgress] = useState(0);
+
+	/**
+	 * A recommended limit to the number of processes.
+	 */
 	const recommendedLimit = 50;
 
 	var token = 0;
 	var turn = 0;
 
-	const startProgram = () => {
-		loadStates();
-		setTimeout(threadRunner, 0);
-	};
-
+	/**
+	 * useEffect hook on the request variable in order to update the following:
+	 * 1. Progressbar
+	 */
 	useEffect(() => {
-		// log the request variable
-		console.log({ request });
-
 		// compute progress
 		var tempProgress = 0;
 		Object.keys(request).forEach((key) => {
@@ -47,23 +66,33 @@ function App() {
 		setProgress(tempProgress);
 	}, [request]);
 
+	/**
+	 * The main method that invokes the program execution. This method is invoked using a button in the GUI.
+	 */
+	const startProgram = () => {
+		loadStates();
+		threadRunner();
+	};
+
+	/**
+	 * This function starts N number of processes as defined in the numProcesses variable.
+	 */
 	const threadRunner = () => {
 		for (var i = 0; i < numProcesses; i++) {
 			runAThread(i);
 		}
 	};
 
+	/**
+	 * This starts a single process with a thread id "i", where i is provided by the threadRunner method.
+	 * @param {*} id
+	 */
 	const runAThread = (id) => {
 		setTimeout(() => {
 			const wait = rand();
 			const critical = rand();
 			setTimeout(() => {
 				console.log("Process " + id + " is requesting for resource");
-				console.log("request before setting it 1", request);
-				setLogs((previousLogs) => [
-					...previousLogs,
-					"Process " + id + " is requesting for resource",
-				]);
 				setRequest((previousRequest) => {
 					return { ...previousRequest, [id]: 1 };
 				});
@@ -104,15 +133,15 @@ function App() {
 						return { ...previousRequest, [id]: 3 };
 					});
 					console.log("Process " + id + " has released resource");
-					setLogs((previousLogs) => [
-						...previousLogs,
-						"Process " + id + " has released resource",
-					]);
 				}, critical);
 			}, wait);
 		}, rand());
 	};
 
+	/**
+	 * A random number generator to help with generating random times in milliseconds.
+	 * @returns a random time between 0 & 5000 milliseconds.
+	 */
 	const rand = () => {
 		var options = {
 			min: 0,
@@ -122,6 +151,9 @@ function App() {
 		return rn(options);
 	};
 
+	/**
+	 * Prefills data for all the state variables.
+	 */
 	const loadStates = () => {
 		clearStates();
 		for (var i = 0; i < numProcesses - 1; i++) {
@@ -136,6 +168,9 @@ function App() {
 		}
 	};
 
+	/**
+	 * Resets all the state variable data.
+	 */
 	const clearStates = () => {
 		setRequest(() => {
 			return {};
@@ -143,16 +178,33 @@ function App() {
 		setGranted(() => {
 			return {};
 		});
+		setProgress(() => {
+			return 0;
+		});
 	};
 
+	/**
+	 * Handle the change in the input box that stores the number of processes that need to be demonstrated.
+	 * @param {*} event
+	 */
 	const handleNumProcessChange = (event) => {
 		setNumProcesses(parseInt(event.target.value) || 0);
 	};
 
+	/**
+	 * Says whether the inputs need to be disabled or not.
+	 * We disable the inputs if the program is in progress.
+	 * @returns
+	 */
 	const disableButtons = () => {
 		return progress != 0 && progress != 100;
 	};
 
+	/**
+	 * A little validation to warn the user from
+	 * not entering large values for the number of processes.
+	 * @returns
+	 */
 	const isInputInvalid = () => {
 		return numProcesses > recommendedLimit;
 	};
