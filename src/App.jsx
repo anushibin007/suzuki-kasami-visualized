@@ -18,6 +18,7 @@ function App() {
 	const [N, setNumProcesses] = useState(10);
 	const [logs, setLogs] = useState([]);
 	const [progress, setProgress] = useState(0);
+	const recommendedLimit = 50;
 
 	var token = 0;
 	var turn = 0;
@@ -152,6 +153,10 @@ function App() {
 		return progress != 0 && progress != 100;
 	};
 
+	const isInputInvalid = () => {
+		return N > recommendedLimit;
+	};
+
 	return (
 		<Container className="my-3">
 			<h2>
@@ -168,7 +173,12 @@ function App() {
 						onChange={handleNumProcessChange}
 						autoFocus
 						disabled={disableButtons()}
+						isInvalid={isInputInvalid()}
 					/>
+					<Form.Control.Feedback type="invalid">
+						{`Don't destroy your device! It is recommended to try something lesser than
+						${recommendedLimit}.`}
+					</Form.Control.Feedback>
 				</FloatingLabel>
 				<Button onClick={startProgram} disabled={disableButtons()}>
 					Start Program
