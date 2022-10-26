@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import rn from "random-number";
 import { useEffect } from "react";
-import { Button, Container, Table, InputGroup, Form, Alert, ProgressBar } from "react-bootstrap";
+import {
+	Button,
+	Container,
+	Table,
+	InputGroup,
+	Form,
+	Alert,
+	ProgressBar,
+	FloatingLabel,
+} from "react-bootstrap";
 
 function App() {
 	const [request, setRequest] = useState({});
@@ -150,16 +159,17 @@ function App() {
 				distributed mutual exclusion
 			</h2>
 			<InputGroup className="mb-3">
-				<InputGroup.Text id="basic-addon1">Number of Processes</InputGroup.Text>
-				<Form.Control
-					placeholder="Number of Processes"
-					aria-label="Number of Processes"
-					aria-describedby="basic-addon1"
-					value={N}
-					onChange={handleNumProcessChange}
-					autoFocus
-					disabled={disableButtons()}
-				/>
+				<FloatingLabel controlId="floatingInput" label="Number of Processes">
+					<Form.Control
+						placeholder="Number of Processes"
+						aria-label="Number of Processes"
+						aria-describedby="basic-addon1"
+						value={N}
+						onChange={handleNumProcessChange}
+						autoFocus
+						disabled={disableButtons()}
+					/>
+				</FloatingLabel>
 				<Button onClick={startProgram} disabled={disableButtons()}>
 					Start Program
 				</Button>
