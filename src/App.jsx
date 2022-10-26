@@ -215,6 +215,7 @@ function App() {
 				<a href="https://github.com/anushibin007/suzuki-kasami-visualized" target="_blank">
 					my GitHub
 				</a>
+				.
 			</p>
 		</Container>
 	);
