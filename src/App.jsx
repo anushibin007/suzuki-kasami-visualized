@@ -15,7 +15,7 @@ import {
 function App() {
 	const [request, setRequest] = useState({});
 	const [granted, setGranted] = useState({});
-	const [N, setNumProcesses] = useState(10);
+	const [numProcesses, setNumProcesses] = useState(10);
 	const [logs, setLogs] = useState([]);
 	const [progress, setProgress] = useState(0);
 	const recommendedLimit = 50;
@@ -39,7 +39,7 @@ function App() {
 				tempProgress += 1;
 			}
 		});
-		tempProgress = (tempProgress / N) * 100;
+		tempProgress = (tempProgress / numProcesses) * 100;
 		// Set a dummy progress value in order to start the process and also disable the buttons and inputs
 		if (tempProgress === 0 && Object.keys(request).length > 0) {
 			tempProgress = 5;
@@ -48,7 +48,7 @@ function App() {
 	}, [request]);
 
 	const threadRunner = () => {
-		for (var i = 0; i < N; i++) {
+		for (var i = 0; i < numProcesses; i++) {
 			runAThread(i);
 		}
 	};
@@ -124,12 +124,12 @@ function App() {
 
 	const loadStates = () => {
 		clearStates();
-		for (var i = 0; i < N - 1; i++) {
+		for (var i = 0; i < numProcesses - 1; i++) {
 			setRequest((previousRequest) => {
 				return { ...previousRequest, [i]: 0 };
 			});
 		}
-		for (var i = 0; i < N - 1; i++) {
+		for (var i = 0; i < numProcesses - 1; i++) {
 			setGranted((previousGrant) => {
 				return { ...previousGrant, [i]: 1 };
 			});
@@ -154,7 +154,7 @@ function App() {
 	};
 
 	const isInputInvalid = () => {
-		return N > recommendedLimit;
+		return numProcesses > recommendedLimit;
 	};
 
 	return (
@@ -169,7 +169,7 @@ function App() {
 						placeholder="Number of Processes"
 						aria-label="Number of Processes"
 						aria-describedby="basic-addon1"
-						value={N}
+						value={numProcesses}
 						onChange={handleNumProcessChange}
 						autoFocus
 						disabled={disableButtons()}
