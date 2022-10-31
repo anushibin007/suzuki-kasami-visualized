@@ -4,6 +4,11 @@
 
 The project is live on AWS Amplify at: https://master.d3nrzc077r7ovf.amplifyapp.com/
 
+## Source Code on GitHub
+
+The Source Code can also be obtained from my GitHub Page: https://github.com/anushibin007/suzuki-kasami-visualized  
+Note: I will be making this repo public on the night of 3-Nov-2022 in order to avoid any unwanted plagiarisms.
+
 ## Author
 
 Anu Shibin J (2022MT12007)
